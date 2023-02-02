@@ -1,0 +1,32 @@
+{
+  "name": "diploma",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "component": "generate-react component"
+  },
+  "dependencies": {
+    "@next/font": "13.1.5",
+    "@reduxjs/toolkit": "^1.9.1",
+    "@types/node": "18.11.18",
+    "@types/react": "18.0.27",
+    "@types/react-dom": "18.0.10",
+    "axios": "^1.2.6",
+    "next": "13.1.5",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-redux": "^8.0.5",
+    "react-toastify": "^9.1.1",
+    "styled-components": "^5.3.6",
+    "typescript": "4.9.4"
+  },
+  "devDependencies": {
+    "@svgr/webpack": "^6.5.1",
+    "@types/styled-components": "^5.1.26",
+    "generate-react-cli": "^8.2.0"
+  }
+}

@@ -3,16 +3,16 @@ import Link from "next/link";
 import SvgHomePage from "@/assets/svgr/HomePage";
 import SvgSubscriptionsPage from "@/assets/svgr/SubscriptionsPage";
 import SvgMailPage from "@/assets/svgr/MailPage";
-import SvgLikePage from "@/assets/svgr/LikePage";
 import {useRouter} from "next/router";
 import SvgLogo from "@/assets/svgr/Logo";
 import SvgLogout from "@/assets/svgr/Logout";
+import SvgProfile from "@/assets/svgr/Profile";
 
 const routes = [
     {id: 1, icon: (active: boolean) => <SvgHomePage fill={active ? "#114FEE" : "#686868"}/>, href: "/"},
     {id: 2, icon: (active: boolean) => <SvgSubscriptionsPage fill={active ? "#114FEE" : "#686868"}/>, href: "/subscriptions"},
     {id: 3, icon: (active: boolean) => <SvgMailPage fill={active ? "#114FEE" : "#686868"}/>, href: "/chats"},
-    {id: 4, icon: (active: boolean) => <SvgLikePage fill={active ? "#114FEE" : "#686868"}/>, href: "/likes"},
+    {id: 4, icon: (active: boolean) => <SvgProfile fill={active ? "#114FEE" : "#686868"}/>, href: "/profile"},
 ]
 
 export const Navigation = () => {
@@ -39,12 +39,11 @@ export const Navigation = () => {
 };
 
 const Container = styled.div`
-  min-width: 130px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 30px 35px;
+  padding: 30px 20px;
 `
 const Nav = styled.div`
   display: flex;

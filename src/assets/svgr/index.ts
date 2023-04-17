@@ -4,4 +4,6 @@ export { default as LikePage } from "./LikePage";
 export { default as Logo } from "./Logo";
 export { default as Logout } from "./Logout";
 export { default as MailPage } from "./MailPage";
+export { default as Profile } from "./Profile";
+export { default as SendMail } from "./SendMail";
 export { default as SubscriptionsPage } from "./SubscriptionsPage";

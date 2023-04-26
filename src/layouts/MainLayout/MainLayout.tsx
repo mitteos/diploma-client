@@ -6,22 +6,27 @@ import {Navigation} from "@/components/Layout";
 import SimpleBar from "simplebar-react";
 
 interface MainLayoutProps {
-    variant?: "primary" | "profile"
+    variant?: "primary" | "profile" | "message"
     title: string;
     children: React.ReactNode | React.ReactNode[]
 }
 
 export const MainLayout: React.FC<MainLayoutProps> = ({title, children, variant = "primary"}) => {
-    const pageTitle = `AirShot | ${title}`
+    const pageTitle = `Салют | ${title}`
     return (
         <Container>
             <Head>
                 <title>{pageTitle}</title>
             </Head>
             <Navigation />
-            <Content $variant={variant}>
-                {children}
-            </Content>
+            {variant === "message"
+                ? <MessageContent>
+                    {children}
+                </MessageContent>
+                : <Content $variant={variant}>
+                    {children}
+                </Content>
+            }
         </Container>
     );
 };
@@ -34,12 +39,25 @@ const Container = styled.div`
   display: flex;
   overflow: hidden;
 `
-const Content = styled(SimpleBar)<{$variant: "primary" | "profile"}>`
+const MessageContent = styled.div`
   flex: auto;
-  background: ${({$variant}) => $variant === "primary" ? "#fff" : "#060419"} ;
+  border-radius: 32px;
+  color: #000;
+  margin: 12px 12px 12px 0;
+  width: 100%;
+  align-self: stretch;
+  background: #fff;
+`
+const Content = styled(SimpleBar)<{$variant: "primary" | "profile" | "message"}>`
+  flex: auto;
+  background: ${({$variant}) => $variant === "primary" || $variant === "message" ? "#fff" : "#060419"} ;
   border-radius: 32px;
   padding: ${({$variant}) => $variant === "primary" && "50px 60px"};
   color: #000;
   margin: 12px 12px 12px 0;
   width: 100%;
+  @media (max-width: 876px) {
+    padding-bottom: 100px;
+    margin: 12px;
+  }
 `

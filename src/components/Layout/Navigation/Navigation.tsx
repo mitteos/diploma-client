@@ -21,9 +21,9 @@ export const Navigation = () => {
 
     return (
         <Container>
-            <Link href="/">
+            <Logo href="/">
                 <SvgLogo fill="#114FEE"/>
-            </Link>
+            </Logo>
             <Nav>
             {routes.map(route =>
                 <NavItem key={route.id} href={route.href} $active={router.route === route.href}>
@@ -44,12 +44,30 @@ const Container = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 30px 20px;
+  @media (max-width: 876px) {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    flex-direction: row;
+    z-index: 10;
+    background: #060419;
+    padding: 10px 20px;
+  }
+`
+const Logo = styled(Link)`
+  @media (max-width: 876px) {
+    display: none;
+  }
 `
 const Nav = styled.div`
   display: flex;
   flex-direction: column;
   gap: 30px;
   align-items: center;
+  @media (max-width: 876px) {
+    flex-direction: row;
+  }
 `
 const NavItem = styled(Link)<{$active?: boolean}>`
   transition: all .3s ease;
@@ -63,4 +81,8 @@ const NavItem = styled(Link)<{$active?: boolean}>`
     background: #1D192D;
   }
   background: ${({$active}) => $active && "#1D192D"};
+  @media (max-width: 540px) {
+    width: 40px;
+    height: 40px;
+  }
 `

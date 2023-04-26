@@ -4,6 +4,7 @@ import PostAuthorImage from "@/assets/png/postAuthor.png";
 import PostImage1 from "@/assets/png/postImage1.png";
 import PostImage2 from "@/assets/png/postImage2.png";
 import Image from "next/image";
+import {CommentIcon, LikeIcon} from "@/assets/svgr";
 
 interface FeedItemProps {
     variant?: "primary" | "profile"
@@ -24,6 +25,16 @@ export const FeedItem: React.FC<FeedItemProps> = ({variant = "primary"}) => {
                 <PostImagesItem src={PostImage1} alt="post image" />
                 <PostImagesItem src={PostImage2} alt="post image" />
             </PostImages>
+            <Navigation>
+                <NavigationItem>
+                    <LikeIcon />
+                    <NavigationText>42K</NavigationText>
+                </NavigationItem>
+                <NavigationItem>
+                    <CommentIcon />
+                    <NavigationText>957</NavigationText>
+                </NavigationItem>
+            </Navigation>
         </Container>
     );
 };
@@ -32,13 +43,14 @@ const Container = styled.div<{$variant: "primary" | "profile"}>`
   background: ${({$variant}) => $variant === "primary" ? "#FFFFFF" : "#060419"};
   border-radius: 23px;
   padding: 21px 15px;
-  max-width: 700px;
+  max-width: 900px;
   display: flex;
   flex-direction: column;
   gap: 17px;
   transition: all .5s ease;
+  box-shadow: ${({$variant}) => $variant === "primary" ? "2px 4px 10px 1px rgba(0, 0, 0, 0.15)" : "2px 4px 10px 1px rgba(255, 255, 255, 0.15)"};
   &:hover {
-    box-shadow: ${({$variant}) => $variant === "primary" ? "2px 4px 10px 1px rgba(0, 0, 0, 0.15)" : "2px 4px 10px 1px rgba(255, 255, 255, 0.15)"};
+    box-shadow: ${({$variant}) => $variant === "primary" ? "2px 4px 10px 1px rgba(0, 0, 0, 0.25)" : "2px 4px 10px 1px rgba(255, 255, 255, 0.25)"};
   }
 `
 const Profile = styled.div`
@@ -77,10 +89,29 @@ const PostImages = styled.div`
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  gap: 10px;
 `
 const PostImagesItem = styled(Image)`
   width: 326px;
-  height: 249px;
+  max-height: 249px;
   object-fit: cover;
   border-radius: 26px;
+  flex: auto;
+`
+const Navigation = styled.div`
+  display: flex;
+  gap: 39px;
+  align-items: center;
+`
+const NavigationItem = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+`
+const NavigationText = styled.p`
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  color: #444444;
 `

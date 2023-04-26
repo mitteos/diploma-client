@@ -4,12 +4,13 @@ const SvgMailPage = (props: SVGProps<SVGSVGElement>) => (
   <svg
     width={27}
     height={27}
-    fill="none"
+    fill="#fff"
     xmlns="http://www.w3.org/2000/svg"
+    {...props}
   >
     <g
       clipPath="url(#mailPage_svg__a)"
-      stroke={props.fill}
+      stroke="#686868"
       strokeWidth={2}
       strokeMiterlimit={10}
       strokeLinecap="round"

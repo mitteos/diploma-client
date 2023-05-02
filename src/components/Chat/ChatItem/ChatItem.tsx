@@ -3,19 +3,24 @@ import styled, {css} from "styled-components";
 import ChatAvatar from "@/assets/png/chatItem.png";
 import Image from "next/image";
 import Link from "next/link";
+import {ChatState} from "@/store/features/chat/types";
 
 interface ChatItemProps {
     isSend?: boolean
     isNew?: boolean
+    info: ChatState
 }
 
-export const ChatItem: React.FC<ChatItemProps> = ({isSend = false, isNew = false}) => {
+export const ChatItem: React.FC<ChatItemProps> = ({isSend = false, isNew = false, info}) => {
+
+
+
     return (
-        <Container href="/chats/1">
+        <Container href={{pathname: "/chats", query: {chatId: info.chatId}}}>
             <Icon src={ChatAvatar} alt="avatar"/>
             <InfoContainer>
                 <Header>
-                    <Name>Alex Snow</Name>
+                    <Name>{info.user.name} {info.user.surname}</Name>
                     <Time>14:42</Time>
                 </Header>
                 <MessageContainer>

@@ -1,18 +1,40 @@
-import React from 'react';
+import React, {MutableRefObject} from 'react';
 import styled from "styled-components";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {Input} from "@/components/UI";
+import {useAppDispatch, useAppSelector} from "@/hooks/redux";
+import {useRouter} from "next/router";
+import { messageAsyncActions } from '@/store/features/message';
 
 interface MessageFields {
     message: string
 }
 
-export const MessageForm = () => {
+interface MessageFormProps {
+    socket: MutableRefObject<WebSocket | undefined>
+}
 
-    const {register, formState: {errors}, getValues, handleSubmit} = useForm<MessageFields>()
+export const MessageForm: React.FC<MessageFormProps> = ({socket}) => {
+
+    const {register, formState: {errors}, getValues, handleSubmit, reset} = useForm<MessageFields>()
+    const {user} = useAppSelector(state => state.user)
+    const {query} = useRouter()
+    const dispatch = useAppDispatch()
 
     const handleSendMessage: SubmitHandler<MessageFields> = (formFields) => {
-        alert(JSON.stringify(formFields))
+        if(user && query.chatId) {
+            const message = {
+                id: Date.now(),
+                event: "message",
+                content: formFields.message,
+                chatId: +query.chatId,
+                userId: user.id,
+                createdAt: Date.now()
+            }
+            socket.current?.send(JSON.stringify(message))
+            dispatch(messageAsyncActions.create({content: formFields.message, userId: user.id, chatId: +query.chatId}))
+            reset()
+        }
     }
 
     return (

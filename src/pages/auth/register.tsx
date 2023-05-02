@@ -6,6 +6,9 @@ import {SubmitHandler, useForm} from "react-hook-form";
 import {emailPattern} from "@/utils/patternsCollection";
 import Link from "next/link";
 import {AuthForm, Navigation} from "@/components/Auth";
+import {useAppDispatch} from "@/hooks/redux";
+import { userAsyncActions } from '@/store/features/user';
+import {useRouter} from "next/router";
 
 interface LoginFormInputs {
   email: string
@@ -19,13 +22,21 @@ const Login: NextPage = () => {
 
   const {register, formState: {errors}, handleSubmit, getValues} = useForm<LoginFormInputs>()
   const [step, setStep] = useState(1)
+  const dispatch = useAppDispatch()
+  const {push} = useRouter()
 
-  const login: SubmitHandler<LoginFormInputs> = (formFields) => {
+  const registration: SubmitHandler<LoginFormInputs> = (formFields) => {
     if(step === 1) {
       setStep(2)
     }
     if(step === 2) {
-      alert(JSON.stringify(formFields))
+      const {email, password, name, age, surname} = formFields
+      dispatch(userAsyncActions.register({email, password, name, surname, birthday: age}))
+          .then((res) => {
+            if (res.meta.requestStatus === "fulfilled") {
+              push("/auth/login")
+            }
+          })
     }
   }
 
@@ -35,13 +46,14 @@ const Login: NextPage = () => {
         <Content>
           <Title>Регистрация</Title>
           <Navigation step={step} setStep={setStep}/>
-          <Form onSubmit={handleSubmit(login)}>
+          <Form onSubmit={handleSubmit(registration)}>
             {step === 1 &&
                 <>
                     <FormInput
                         placeholder="Email"
                         register={register}
                         name="email"
+                        type="email"
                         errors={errors.email}
                         required={true}
                         pattern={emailPattern}

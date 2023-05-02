@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {emailPattern} from "@/utils/patternsCollection";
 import DecorationIcon1 from "@/assets/svg/decoration1.svg";
 import DecorationIcon2 from "@/assets/svg/decoration2.svg";
@@ -7,12 +7,24 @@ import DecorationIcon4 from "@/assets/svg/decoration4.svg";
 import DecorationIcon5 from "@/assets/svg/decoration5.svg";
 import styled from "styled-components";
 import Image from "next/image";
+import {useAppSelector} from "@/hooks/redux";
+import {useRouter} from "next/router";
 
 interface AuthFormProps {
   children: React.ReactNode
 }
 
 export const AuthForm: React.FC<AuthFormProps> = ({children}) => {
+
+  const {user} = useAppSelector(state => state.user)
+  const {push} = useRouter()
+
+  useEffect(() => {
+    if(user) {
+      push("/")
+    }
+  }, [user])
+
   return (
       <Container>
         <Bg>

@@ -4,25 +4,18 @@ const SvgMailPage = (props: SVGProps<SVGSVGElement>) => (
   <svg
     width={27}
     height={27}
-    fill="#fff"
     xmlns="http://www.w3.org/2000/svg"
-    {...props}
   >
-    <g
-      clipPath="url(#mailPage_svg__a)"
-      stroke="#686868"
-      strokeWidth={2}
-      strokeMiterlimit={10}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="m2.531 8.438 10.969 6.75 10.969-6.75" />
-      <path d="M5.906 10.547V2.53c0-.928.76-1.687 1.688-1.687h11.812c.928 0 1.688.76 1.688 1.687v8.016" />
-      <path d="M21.094 4.219a3.385 3.385 0 0 1 3.375 3.375v11.812a3.385 3.385 0 0 1-3.375 3.375H5.906a3.385 3.385 0 0 1-3.375-3.375V7.594a3.385 3.385 0 0 1 3.375-3.375M9.281 4.219h5.906M9.281 7.594h2.531" />
+    <g clip-path="url(#clip0_2_139)">
+      <path d="M2.53125 8.4375L13.5 15.1875L24.4688 8.4375" stroke="#686868" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M5.90625 10.5469V2.53125C5.90625 1.60312 6.66562 0.84375 7.59375 0.84375H19.4062C20.3344 0.84375 21.0938 1.60312 21.0938 2.53125V10.5469" stroke="#686868" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M21.0938 4.21875C22.95 4.21875 24.4688 5.7375 24.4688 7.59375V19.4062C24.4688 21.2625 22.95 22.7812 21.0938 22.7812H5.90625C4.05 22.7812 2.53125 21.2625 2.53125 19.4062V7.59375C2.53125 5.7375 4.05 4.21875 5.90625 4.21875" stroke="#686868" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M9.28125 4.21875H15.1875" stroke="#686868" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M9.28125 7.59375H11.8125" stroke="#686868" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
     </g>
     <defs>
-      <clipPath id="mailPage_svg__a">
-        <path fill="#fff" d="M0 0h27v27H0z" />
+      <clipPath id="clip0_2_139">
+        <rect width="27" height="27" fill="white"/>
       </clipPath>
     </defs>
   </svg>

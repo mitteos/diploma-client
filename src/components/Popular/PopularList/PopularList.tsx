@@ -11,7 +11,6 @@ export const PopularList = () => {
             freeMode={true}
             slidesOffsetBefore={60}
             slidesOffsetAfter={60}
-            loop={true}
         >
             <SwiperSlide style={SlideStyle}>
                 <PopularItem />
@@ -46,7 +45,7 @@ export const PopularList = () => {
 
 const Container = styled(Swiper)`
   padding: 20px 0;
-  margin: 0 -60px 0 -60px;
+  margin: 0 -60px 30px -60px;
   box-shadow: -29px 0px 23px 0px rgba(255, 255, 255, 0.73) inset;
 `
 const SlideStyle = {

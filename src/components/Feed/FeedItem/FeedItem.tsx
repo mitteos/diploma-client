@@ -1,38 +1,63 @@
 import React from 'react';
 import styled from "styled-components";
 import PostAuthorImage from "@/assets/png/postAuthor.png";
-import PostImage1 from "@/assets/png/postImage1.png";
-import PostImage2 from "@/assets/png/postImage2.png";
 import Image from "next/image";
 import {CommentIcon, LikeIcon} from "@/assets/svgr";
+import {PostState} from "@/store/features/post/types";
+import {useAppDispatch, useAppSelector} from "@/hooks/redux";
+import { likeAsyncActions } from '@/store/features/like';
+import {postActions, postAsyncActions} from '@/store/features/post';
+import Link from "next/link";
+import * as process from "process";
 
 interface FeedItemProps {
     variant?: "primary" | "profile"
+    info: PostState
 }
 
-export const FeedItem: React.FC<FeedItemProps> = ({variant = "primary"}) => {
+export const FeedItem: React.FC<FeedItemProps> = ({variant = "primary", info}) => {
+
+    const dispatch = useAppDispatch()
+    const {user} = useAppSelector(state => state.user)
+    const postDate = new Date(info.createdAt)
+    const isLiked = info.likes.map(el => el.userId).includes(user ? user.id : 0)
+
+    const date = {
+        day: postDate.getDate(),
+        month: postDate.getMonth() + 1,
+        year: postDate.getFullYear()
+    }
+
+    const handleLikeClick = () => {
+        if(user) {
+            dispatch(likeAsyncActions.create({userId: user.id, postId: info.id}))
+                .then((res) => dispatch(postActions.toggleLike({userId: user.id, postId: info.id, id: Date.now()})))
+        }
+    }
+
     return (
         <Container $variant={variant}>
             <Profile>
-                <ProfileImage src={PostAuthorImage} alt="post author" />
+                <ProfileImage src={PostAuthorImage} alt="" />
                 <ProfileInfo>
-                    <ProfileName $variant={variant}>Peorica Siemona</ProfileName>
-                    <PostDate>1 min ago</PostDate>
+                    <ProfileName $variant={variant} href={`/profile/${info.userId}`}>{info.user.name} {info.user.surname}</ProfileName>
+                    <PostDate>{date.day}.{date.month}.{date.year}</PostDate>
                 </ProfileInfo>
             </Profile>
-            <PostText $variant={variant}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam tristique imperdiet est, ac lobortis justo lobortis at. Ut sit amet nisl sem.</PostText>
-            <PostImages>
-                <PostImagesItem src={PostImage1} alt="post image" />
-                <PostImagesItem src={PostImage2} alt="post image" />
-            </PostImages>
+            <PostText $variant={variant}>{info.content}</PostText>
+            {info.image &&
+                <PostImages>
+                    <PostImagesItem src={process.env.NEXT_PUBLIC_IMAGE_URL + info.image} alt="" />
+                </PostImages>
+            }
             <Navigation>
-                <NavigationItem>
-                    <LikeIcon />
-                    <NavigationText>42K</NavigationText>
+                <NavigationItem onClick={handleLikeClick}>
+                    <LikeIcon fill={isLiked ? "red" : "#444"}/>
+                    <NavigationText>{info.likes.length}</NavigationText>
                 </NavigationItem>
                 <NavigationItem>
                     <CommentIcon />
-                    <NavigationText>957</NavigationText>
+                    <NavigationText>{info.comments.length}</NavigationText>
                 </NavigationItem>
             </Navigation>
         </Container>
@@ -44,6 +69,7 @@ const Container = styled.div<{$variant: "primary" | "profile"}>`
   border-radius: 23px;
   padding: 21px 15px;
   max-width: 900px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 17px;
@@ -69,9 +95,10 @@ const ProfileImage = styled(Image)`
   height: 64px;
   object-fit: cover;
 `
-const ProfileName = styled.h1<{$variant: "primary" | "profile"}>`
+const ProfileName = styled(Link)<{$variant: "primary" | "profile"}>`
   font-weight: 700;
   font-size: 16px;
+  color: #333;
   color: ${({$variant}) => $variant === "profile" && "#fff"};
 `
 const PostDate = styled.p`
@@ -91,7 +118,7 @@ const PostImages = styled.div`
   flex-wrap: wrap;
   gap: 10px;
 `
-const PostImagesItem = styled(Image)`
+const PostImagesItem = styled.img`
   width: 326px;
   max-height: 249px;
   object-fit: cover;

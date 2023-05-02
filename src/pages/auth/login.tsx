@@ -12,50 +12,62 @@ import DecorationIcon3 from "@/assets/svg/decoration3.svg";
 import DecorationIcon4 from "@/assets/svg/decoration4.svg";
 import DecorationIcon5 from "@/assets/svg/decoration5.svg";
 import {AuthForm} from "@/components/Auth";
+import {useAppDispatch, useAppSelector} from "@/hooks/redux";
+import {userAsyncActions} from '@/store/features/user';
+import {useRouter} from "next/router";
 
 interface LoginFormInputs {
-  email: string
-  password: string
+    email: string
+    password: string
 }
 
 const Login: NextPage = () => {
 
-  const {register, formState: {errors}, handleSubmit, getValues} = useForm<LoginFormInputs>()
+    const {push} = useRouter()
+    const dispatch = useAppDispatch()
+    const {register, formState: {errors}, handleSubmit, getValues} = useForm<LoginFormInputs>()
 
-  const login: SubmitHandler<LoginFormInputs> = (formFields) => {
-    alert(JSON.stringify(formFields))
-  }
+    const login: SubmitHandler<LoginFormInputs> = (formFields) => {
+        const {email, password} = formFields
+        dispatch(userAsyncActions.login({email, password}))
+            .then((res) => {
+                if (res.meta.requestStatus === "fulfilled") {
+                    push("/")
+                }
+            })
+    }
 
-  return (
-      <AuthForm>
-        <Content onSubmit={handleSubmit(login)}>
-          <Title>Авторизация</Title>
-          <FormInput
-              placeholder="Email"
-              register={register}
-              name="email"
-              errors={errors.email}
-              required={true}
-              pattern={emailPattern}
-              getValues={getValues}
-          />
-          <FormInput
-              placeholder="Пароль"
-              type="password"
-              register={register}
-              name="password"
-              errors={errors.password}
-              required={true}
-              getValues={getValues}
-          />
-          <Button>Войти</Button>
-          <Snippet>
-            <SnippetText>Еще нет аккаунта?</SnippetText>
-            <SnippetLink href="/auth/register">Зарегистрироваться</SnippetLink>
-          </Snippet>
-        </Content>
-      </AuthForm>
-  );
+    return (
+        <AuthForm>
+            <Content onSubmit={handleSubmit(login)}>
+                <Title>Авторизация</Title>
+                <FormInput
+                    placeholder="Email"
+                    register={register}
+                    name="email"
+                    type="email"
+                    errors={errors.email}
+                    required={true}
+                    pattern={emailPattern}
+                    getValues={getValues}
+                />
+                <FormInput
+                    placeholder="Пароль"
+                    type="password"
+                    register={register}
+                    name="password"
+                    errors={errors.password}
+                    required={true}
+                    getValues={getValues}
+                />
+                <Button>Войти</Button>
+                <Snippet>
+                    <SnippetText>Еще нет аккаунта?</SnippetText>
+                    <SnippetLink href="/auth/register">Зарегистрироваться</SnippetLink>
+                </Snippet>
+            </Content>
+        </AuthForm>
+    );
 };
 
 export default Login;

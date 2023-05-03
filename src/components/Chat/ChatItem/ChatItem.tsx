@@ -1,9 +1,13 @@
 import React from 'react';
 import styled, {css} from "styled-components";
-import ChatAvatar from "@/assets/png/chatItem.png";
 import Image from "next/image";
 import Link from "next/link";
 import {ChatState} from "@/store/features/chat/types";
+import * as process from "process";
+import SvgUnknownProfile from "@/assets/svgr/UnknownProfile";
+import {useAppDispatch} from "@/hooks/redux";
+import {useRouter} from "next/router";
+import {chatActions} from "@/store/features/chat";
 
 interface ChatItemProps {
     isSend?: boolean
@@ -13,11 +17,23 @@ interface ChatItemProps {
 
 export const ChatItem: React.FC<ChatItemProps> = ({isSend = false, isNew = false, info}) => {
 
+    const dispatch = useAppDispatch()
+    const {push} = useRouter()
 
+    const handleChooseChat = () => {
+        dispatch(chatActions.setChatModalActive(true))
+        push({pathname: "/chats", query: {chatId: info.chatId}})
+    }
 
     return (
-        <Container href={{pathname: "/chats", query: {chatId: info.chatId}}}>
-            <Icon src={ChatAvatar} alt="avatar"/>
+        <Container onClick={handleChooseChat}>
+            {info.user.image
+                ? <Icon src={process.env.NEXT_PUBLIC_IMAGE_URL + info.user.image} alt="avatar"/>
+                : <UnknownIcon>
+                    <SvgUnknownProfile fill="#306EEA" />
+                </UnknownIcon>
+            }
+
             <InfoContainer>
                 <Header>
                     <Name>{info.user.name} {info.user.surname}</Name>
@@ -35,13 +51,13 @@ export const ChatItem: React.FC<ChatItemProps> = ({isSend = false, isNew = false
     );
 };
 
-const Container = styled(Link)`
+const Container = styled.div`
   width: 100%;
   display: flex;
-  gap: 40px;
+  gap: 20px;
   align-items: center;
   @media (max-width: 876px) {
-    gap: 20px;
+    gap: 10px;
   }
 `
 const Icon = styled(Image)`
@@ -52,6 +68,14 @@ const Icon = styled(Image)`
   @media (max-width: 876px) {
     width: 60px;
     height: 60px;
+  }
+`
+const UnknownIcon = styled.div`
+  width: 40px;
+  height: 40px;
+  svg {
+    width: 100%;
+    height: 100%;
   }
 `
 const InfoContainer = styled.div`

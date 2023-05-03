@@ -64,6 +64,13 @@ const MessageContent = styled.div`
   width: 100%;
   align-self: stretch;
   background: #fff;
+  @media (max-width: 876px) {
+    margin: 12px;
+  }
+  @media (max-width: 730px) {
+    border-radius: 32px;
+    overflow: hidden;
+  }
 `
 const Content = styled(SimpleBar)<{$variant: "primary" | "profile" | "message"}>`
   flex: auto;
@@ -77,5 +84,8 @@ const Content = styled(SimpleBar)<{$variant: "primary" | "profile" | "message"}>
   @media (max-width: 876px) {
     padding-bottom: 100px;
     margin: 12px;
+  }
+  @media (max-width: 500px) {
+    padding: ${({$variant}) => $variant === "primary" && "30px 20px 80px 20px"};
   }
 `

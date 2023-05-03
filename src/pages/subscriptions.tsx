@@ -27,4 +27,9 @@ const NavigationContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   margin: 0 0 30px;
+  @media (max-width: 750px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
 `

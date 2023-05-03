@@ -56,6 +56,11 @@ const AddPostContainer = styled.form`
   gap: 20px;
   max-width: 900px;
   margin: 15px 0 38px;
+  @media (max-width: 600px) {
+    flex-direction: column;
+    border-bottom: 1px solid rgba(0,0,0,0.5);
+    padding-bottom: 20px;
+  }
 `
 
 const AddPostButton = styled.button`
@@ -71,6 +76,12 @@ const AddPostButton = styled.button`
   border: none;
   &:hover {
     box-shadow: 0px 4px 14px #346BEA;
+  }
+  @media (max-width: 800px) {
+    padding: 13px 25px;
+  }
+  @media (max-width: 600px) {
+    align-self: stretch;
   }
 `
 const AddImageButton = styled.div`
@@ -91,6 +102,9 @@ const AddImageButton = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  @media (max-width: 600px) {
+    align-self: stretch;
+  }
 `
 const FormImageInput = styled.input`
   position: absolute;

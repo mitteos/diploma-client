@@ -9,6 +9,7 @@ import { likeAsyncActions } from '@/store/features/like';
 import {postActions, postAsyncActions} from '@/store/features/post';
 import Link from "next/link";
 import * as process from "process";
+import SvgUnknownProfile from "@/assets/svgr/UnknownProfile";
 
 interface FeedItemProps {
     variant?: "primary" | "profile"
@@ -38,7 +39,13 @@ export const FeedItem: React.FC<FeedItemProps> = ({variant = "primary", info}) =
     return (
         <Container $variant={variant}>
             <Profile>
-                <ProfileImage src={PostAuthorImage} alt="" />
+                {info.user.image
+                    ? <ProfileImage src={process.env.NEXT_PUBLIC_IMAGE_URL + info.user.image} alt="" />
+                    : <UnknownImage $variant={variant}>
+                        <SvgUnknownProfile fill="#306EEA"/>
+                    </UnknownImage>
+                }
+
                 <ProfileInfo>
                     <ProfileName $variant={variant} href={`/profile/${info.userId}`}>{info.user.name} {info.user.surname}</ProfileName>
                     <PostDate>{date.day}.{date.month}.{date.year}</PostDate>
@@ -94,6 +101,16 @@ const ProfileImage = styled(Image)`
   width: 64px;
   height: 64px;
   object-fit: cover;
+`
+const UnknownImage = styled.div<{$variant: "primary" | "profile"}>`
+  border-radius: 100%;
+  width: 64px;
+  height: 64px;
+  background: ${({$variant}) => $variant === "profile" && "#060419"} ;
+  svg {
+    width: 100%;
+    height: 100%;
+  }
 `
 const ProfileName = styled(Link)<{$variant: "primary" | "profile"}>`
   font-weight: 700;

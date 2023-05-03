@@ -1,24 +1,30 @@
 import {UserState} from "@/store/features/user/types";
-import {createSlice, isAnyOf} from "@reduxjs/toolkit";
+import {createSlice, isAnyOf, PayloadAction} from "@reduxjs/toolkit";
 import {ChatState} from "@/store/features/chat/types";
 import { chatAsyncActions } from ".";
 
 interface InitialState {
     isLoading: boolean;
     error?: string | unknown;
-    chats: ChatState[],
+    chats: ChatState[];
+    isChatModalActive: boolean;
 }
 
 const initialState: InitialState = {
     isLoading: false,
     error: "",
-    chats: []
+    chats: [],
+    isChatModalActive: false
 }
 
 const chatSlice = createSlice({
     name: "chat",
     initialState,
-    reducers: {},
+    reducers: {
+        setChatModalActive(state, action: PayloadAction<boolean>) {
+            state.isChatModalActive = action.payload
+        }
+    },
     extraReducers: (builder) => {
         builder.addCase(chatAsyncActions.getAll.fulfilled, (state, action) => {
             state.isLoading = false
@@ -53,3 +59,4 @@ const chatSlice = createSlice({
 })
 
 export const chatReducer = chatSlice.reducer
+export const chatActions = chatSlice.actions

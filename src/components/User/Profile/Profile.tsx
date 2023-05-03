@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
 import HeaderBGImage from "@/assets/png/profileBG.png";
-import AvatarImage from "@/assets/png/ProfileImage.png";
 import SvgSendMail from "@/assets/svgr/SendMail";
 import {FeedList} from "@/components/Feed";
 import {MainLayout} from "@/layouts";
@@ -13,7 +12,7 @@ import { subscriptionAsyncActions } from '@/store/features/subscription';
 import {$query} from "@/http";
 import {useRouter} from "next/router";
 import { chatAsyncActions } from '@/store/features/chat';
-import {PayloadAction} from "@reduxjs/toolkit";
+import SvgUnknownProfile from "@/assets/svgr/UnknownProfile";
 
 interface ProfileProps {
     user: UserState;
@@ -62,9 +61,14 @@ export const Profile: React.FC<ProfileProps> = ({user}) => {
                 <HeaderBG src={HeaderBGImage} alt="header bg" />
             </Header>
             <InfoContainer>
-                <AvatarContainer>
-                    <Avatar src={AvatarImage} alt="avatar" />
-                </AvatarContainer>
+                {user.image
+                    ? <AvatarContainer>
+                        <Avatar src={user.image} alt="avatar" />
+                    </AvatarContainer>
+                    : <AvatarUnknown>
+                        <SvgUnknownProfile fill="#306EEA"/>
+                    </AvatarUnknown>
+                }
                 <ProfileInfo>
                     <Name>{user?.name} {user?.surname}</Name>
                     <Description>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam tristique imperdiet est, ac lobortis justo lobortis at. Ut sit amet nisl sem.</Description>
@@ -130,6 +134,10 @@ const InfoContainer = styled.div`
   align-items: center;
   gap: 35px;
   margin-top: -63px;
+  @media (max-width: 855px) {
+    width: 90%;
+    margin: -63px auto 0 auto;
+  }
 `
 const AvatarContainer = styled.div`
   background: linear-gradient(90deg, #306EEA 0%, #306EEA 0.01%, #A200DB 100%);
@@ -140,7 +148,16 @@ const AvatarContainer = styled.div`
   align-items: center;
   justify-content: center;
 `
-
+const AvatarUnknown = styled.div`
+  width: 120px;
+  height: 120px;
+  background: #060419;
+  border-radius: 100%;
+  svg {
+    width: 120px;
+    height: 120px;
+  }
+`
 const Avatar = styled(Image)`
   border-radius: 100%;
   width: 92%;
@@ -245,4 +262,7 @@ const List = styled.div`
   max-width: 900px;
   width: 70%;
   margin: 0 auto;
+  @media (max-width: 855px) {
+    width: 100%;
+  }
 `

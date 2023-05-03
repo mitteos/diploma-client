@@ -1,4 +1,5 @@
 export { default as Add } from "./Add";
+export { default as Arrow } from "./Arrow";
 export { default as Close } from "./Close";
 export { default as CommentIcon } from "./CommentIcon";
 export { default as Decoration1 } from "./Decoration1";
@@ -18,4 +19,5 @@ export { default as Register2 } from "./Register2";
 export { default as SearchIcon } from "./SearchIcon";
 export { default as SendMail } from "./SendMail";
 export { default as SubscriptionsPage } from "./SubscriptionsPage";
+export { default as UnknownProfile } from "./UnknownProfile";
 export { default as UploadIcon } from "./UploadIcon";

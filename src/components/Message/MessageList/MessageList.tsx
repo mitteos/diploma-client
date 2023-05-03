@@ -6,6 +6,8 @@ import {useRouter} from "next/router";
 import {useAppDispatch, useAppSelector} from "@/hooks/redux";
 import {messageActions, messageAsyncActions} from '@/store/features/message';
 import {MessageState} from "@/store/features/message/types";
+import * as process from "process";
+import {chatActions} from "@/store/features/chat";
 
 export const MessageList = () => {
 
@@ -24,7 +26,7 @@ export const MessageList = () => {
         if(query.chatId && user) {
             dispatch(messageAsyncActions.getChat({chatId: +query.chatId}))
 
-            socket.current = new WebSocket("ws://localhost:7000")
+            socket.current = new WebSocket(process.env.NEXT_PUBLIC_WEBSOCKET || "")
 
             socket.current.onopen = () => {
                 const message = {
@@ -42,7 +44,6 @@ export const MessageList = () => {
                 }
             }
         }
-
     }, [query.chatId])
 
     useEffect(() => {
@@ -101,8 +102,14 @@ const ListInner = styled.div`
   gap: 20px;
   max-height: 10px;
   padding: 20px 0;
+  @media (max-width: 876px) {
+    width: 90%;
+  }
 `
 const Form = styled.div`
   width: 80%;
   margin: 0 auto;
+  @media (max-width: 876px) {
+    width: 95%;
+  }
 `

@@ -1,2 +1,2 @@
-export {chatReducer} from "./chatSlice"
+export {chatReducer, chatActions} from "./chatSlice"
 export * as chatAsyncActions from "./asyncThunks"

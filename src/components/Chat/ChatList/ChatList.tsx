@@ -37,6 +37,11 @@ const Container = styled.div`
   max-width: 400px;
   padding: 20px 10px;
   box-shadow: 8px 0px 15px 0px rgba(34, 60, 80, 0.12);
+  @media (max-width: 730px) {
+    max-width: none;
+    width: 100%;
+    padding: 20px;
+  }
 `
 const EmptyText = styled.p`
   font-weight: 600;

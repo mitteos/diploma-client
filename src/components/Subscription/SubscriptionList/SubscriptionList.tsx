@@ -30,6 +30,9 @@ const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 30px;
+  @media (max-width: 715px) {
+    justify-content: center;
+  }
 `
 const EmptyText = styled.p`
   font-weight: 600;

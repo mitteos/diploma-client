@@ -56,10 +56,19 @@ const Container = styled.form`
   display: flex;
   align-items: center;
   gap: 15px;
+  @media (max-width: 750px) {
+    align-self: stretch;
+  }
+  @media (max-width: 415px) {
+    flex-direction: column;
+  }
 `
 const FormInput = styled(Input<SearchFormFields>)`
   background: #FFFFFF;
   box-shadow: 0px 4px 18px rgba(0, 0, 0, 0.25);
+  @media (max-width: 750px) {
+    width: 100%;
+  }
 `
 const ClearBtn = styled.div`
   cursor: pointer;
@@ -70,4 +79,8 @@ const ClearBtn = styled.div`
   font-weight: 700;
   font-size: 14px;
   color: #FFFFFF;
+  @media (max-width: 415px) {
+    align-self: stretch;
+    text-align: center;
+  }
 `

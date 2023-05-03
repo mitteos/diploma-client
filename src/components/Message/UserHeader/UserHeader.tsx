@@ -12,7 +12,7 @@ import {chatActions} from "@/store/features/chat";
 
 export const UserHeader: React.FC<{}> = () => {
 
-    const {query, push} = useRouter()
+    const {query} = useRouter()
     const {chats} = useAppSelector(state => state.chat)
     const dispatch = useAppDispatch()
 
@@ -27,7 +27,7 @@ export const UserHeader: React.FC<{}> = () => {
             </CloseChatBtn>
             <UserContainer>
                 {query.chatId
-                    ? chats[+query.chatId].user.image
+                    ? chats[+query.chatId]?.user.image
                         ? <Avatar>
                             <ProfileIcon src={process.env.NEXT_PUBLIC_IMAGE_URL + chats[+query.chatId].user.image} alt="user"/>
                         </Avatar>

@@ -1,5 +1,4 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import {UserSignInState} from "@/store/features/user/types";
 import {$query} from "@/http";
 import {AxiosError} from "axios";
 import {CreatePostState, PostState} from "@/store/features/post/types";

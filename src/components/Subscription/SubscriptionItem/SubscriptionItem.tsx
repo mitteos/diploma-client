@@ -14,10 +14,10 @@ interface SubscriptionItemProps {
 
 export const SubscriptionItem: React.FC<SubscriptionItemProps> = ({info}) => {
     return (
-        <Container $bg={SubsBg.src}>
+        <Container $bg={SubsBg.src} href={`/profile/${info.id}`}>
             <Content>
                 <Avatar src={AvatarIcon} alt="name" />
-                <Name href={`/profile/${info.id}`}>{info.name} {info.surname}</Name>
+                <Name>{info.name} {info.surname}</Name>
                 <Description>I like doing the best work in the world...</Description>
                 {/*<NavigationContainer>*/}
                 {/*    <NavigationItem href="">*/}
@@ -32,7 +32,7 @@ export const SubscriptionItem: React.FC<SubscriptionItemProps> = ({info}) => {
     );
 };
 
-const Container = styled.div<{$bg: string}>`
+const Container = styled(Link)<{$bg: string}>`
   max-width: 270px;
   background: url(${({$bg}) => $bg}) no-repeat center / cover;
   border-radius: 29px;
@@ -54,7 +54,7 @@ const Avatar = styled(Image)`
   object-fit: cover;
   margin: -93px 0 13px;
 `
-const Name = styled(Link)`
+const Name = styled.p`
   font-weight: 600;
   font-size: 22px;
   color: #000;

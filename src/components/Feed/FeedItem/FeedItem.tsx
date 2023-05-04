@@ -24,15 +24,15 @@ export const FeedItem: React.FC<FeedItemProps> = ({variant = "primary", info}) =
     const isLiked = info.likes.map(el => el.userId).includes(user ? user.id : 0)
 
     const date = {
-        day: postDate.getDate(),
-        month: postDate.getMonth() + 1,
+        day: postDate.getDate() < 10 ? `0${postDate.getDate()}` : postDate.getDate(),
+        month: postDate.getMonth() < 9 ? `0${postDate.getMonth() + 1}` : postDate.getMonth() + 1,
         year: postDate.getFullYear()
     }
 
     const handleLikeClick = () => {
         if(user) {
             dispatch(likeAsyncActions.create({userId: user.id, postId: info.id}))
-                .then((res) => dispatch(postActions.toggleLike({userId: user.id, postId: info.id, id: Date.now()})))
+            dispatch(postActions.toggleLike({userId: user.id, postId: info.id, id: Date.now()}))
         }
     }
 

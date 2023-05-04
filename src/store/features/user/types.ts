@@ -1,3 +1,6 @@
+import { PostState } from "../post/types";
+import { SubscriptionState } from "../subscription/types";
+
 export interface UserState {
     id: number;
     email: string;
@@ -6,10 +9,7 @@ export interface UserState {
     surname: string;
     birthday: Date;
     role: string;
+    posts: PostState[];
+    subscriptions: SubscriptionState[];
     token?: string;
-}
-
-export interface UserSignInState {
-    token: string;
-    user: UserState;
 }

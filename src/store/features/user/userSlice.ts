@@ -1,5 +1,5 @@
 import {createSlice, isAnyOf} from "@reduxjs/toolkit";
-import {UserState} from "@/store/features/user/types";
+import { UserState } from "@/store/features/user/types";
 import { userAsyncActions } from ".";
 
 interface InitialState {
@@ -34,13 +34,15 @@ const userSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(userAsyncActions.login.fulfilled, (state, action) => {
             state.isLoading = false
-            state.user = {
-                token: action.payload.token,
-                ...action.payload.user
-            }
+            state.user = action.payload
         })
         builder.addCase(userAsyncActions.register.fulfilled, (state) => {
             state.isLoading = false
+            state.error = ""
+        })
+        builder.addCase(userAsyncActions.check.fulfilled, (state, action) => {
+            state.isLoading = false
+            state.user = action.payload
             state.error = ""
         })
         builder.addCase(userAsyncActions.search.fulfilled, (state, action) => {
@@ -61,6 +63,7 @@ const userSlice = createSlice({
                 userAsyncActions.register.pending,
                 userAsyncActions.search.pending,
                 userAsyncActions.getUser.pending,
+                userAsyncActions.check.pending,
             ),
             (state) => {
                 state.isLoading = true
@@ -73,6 +76,7 @@ const userSlice = createSlice({
                 userAsyncActions.register.rejected,
                 userAsyncActions.search.rejected,
                 userAsyncActions.getUser.rejected,
+                userAsyncActions.check.rejected,
             ),
             (state, action) => {
                 state.isLoading = false

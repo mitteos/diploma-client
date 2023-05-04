@@ -1,7 +1,7 @@
-import React from 'react';
-import {MainLayout} from "@/layouts";
+import React from "react";
+import { MainLayout } from "@/layouts";
 import styled from "styled-components";
-import {SearchForm, SubscriptionList} from "@/components/Subscription";
+import { SearchForm, SubscriptionList } from "@/components/Subscription";
 
 const Subscriptions = () => {
     return (
@@ -18,18 +18,18 @@ const Subscriptions = () => {
 export default Subscriptions;
 
 const Title = styled.h1`
-  font-weight: 700;
-  font-size: 26px;
-  color: #000000;
-`
+    font-weight: 700;
+    font-size: 26px;
+    color: #000000;
+`;
 const NavigationContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: 0 0 30px;
-  @media (max-width: 750px) {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 0 30px;
+    @media (max-width: 750px) {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+`;

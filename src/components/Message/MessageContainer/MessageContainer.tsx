@@ -37,4 +37,7 @@ const Container = styled.div<{$isActive: boolean}>`
     transition: all .3s ease;
     transform: translateX(${({$isActive}) => $isActive ? "0px" : "100%"});
   }
+  @media (max-width: 540px) {
+    padding-bottom: 45px;
+  }
 `

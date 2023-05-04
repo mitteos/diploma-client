@@ -39,7 +39,7 @@ export const UserHeader: React.FC<{}> = () => {
                     </Avatar>
                 }
 
-                <Name>{query.chatId ? `${chats.find(el => !!query.chatId && el.chatId === +query.chatId)?.user.name} ${chats.find(el => !!query.chatId && el.chatId === +query.chatId)?.user.surname} | chat id: ${query.chatId}` : "Выберите получателя"} </Name>
+                <Name>{query.chatId ? `${chats.find(el => !!query.chatId && el.chatId === +query.chatId)?.user.name} ${chats.find(el => !!query.chatId && el.chatId === +query.chatId)?.user.surname}` : "Выберите получателя"} </Name>
             </UserContainer>
         </Container>
     );

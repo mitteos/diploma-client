@@ -17,6 +17,7 @@ export { default as Profile } from "./Profile";
 export { default as Register1 } from "./Register1";
 export { default as Register2 } from "./Register2";
 export { default as SearchIcon } from "./SearchIcon";
+export { default as SendButton } from "./SendButton";
 export { default as SendMail } from "./SendMail";
 export { default as SubscriptionsPage } from "./SubscriptionsPage";
 export { default as UnknownProfile } from "./UnknownProfile";

@@ -20,12 +20,12 @@ export const login = createAsyncThunk<UserState, UserLoginProps>(
     async (userData, { rejectWithValue }) => {
         try {
             const { email, password } = userData;
-            const { data } = await $query.post("user/login", {
+            const { data } = await $query.post<{token: string}>("user/login", {
                 email,
                 password,
             });
         
-            return jwtDecode(data);
+            return jwtDecode(data.token);
         } catch (e) {
             if (e instanceof AxiosError) {
                 return rejectWithValue(e.response?.data.message);

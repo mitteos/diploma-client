@@ -1,12 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import SubsBg from "@/assets/png/subscriptionBG.png";
-import AvatarIcon from "@/assets/png/subscriptionItemIcon.png";
-import Image from "next/image";
 import Link from "next/link";
 import SvgSendMail from "@/assets/svgr/SendMail";
 import SvgClose from "@/assets/svgr/Close";
 import { UserState } from "@/store/features/user/types";
+import SvgUnknownProfile from "@/assets/svgr/UnknownProfile";
 
 interface SubscriptionItemProps {
     info: UserState;
@@ -16,7 +15,18 @@ export const SubscriptionItem: React.FC<SubscriptionItemProps> = ({ info }) => {
     return (
         <Container $bg={SubsBg.src} href={`/profile/${info.id}`}>
             <Content>
-                <Avatar src={AvatarIcon} alt="name" />
+            {info.image ? (
+                    <AvatarContainer>
+                        <Avatar
+                            src={process.env.NEXT_PUBLIC_IMAGE_URL + info.image}
+                            alt="avatar"
+                        />
+                    </AvatarContainer>
+                ) : (
+                    <AvatarUnknown>
+                        <SvgUnknownProfile fill="#306EEA" />
+                    </AvatarUnknown>
+                )}
                 <Name>
                     {info.name} {info.surname}
                 </Name>
@@ -51,12 +61,11 @@ const Content = styled.div`
     padding: 24px 21px;
     margin-top: 120px;
 `;
-const Avatar = styled(Image)`
+const Avatar = styled.img`
     width: 140px;
     height: 140px;
     border-radius: 100%;
     object-fit: cover;
-    margin: -93px 0 13px;
 `;
 const Name = styled.p`
     font-weight: 600;
@@ -78,4 +87,25 @@ const NavigationContainer = styled.div`
 const NavigationItem = styled(Link)`
     width: 20px;
     cursor: pointer;
+`;
+const AvatarContainer = styled.div`
+    background: linear-gradient(90deg, #306eea 0%, #306eea 0.01%, #a200db 100%);
+    border-radius: 100%;
+    width: 120px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    margin: -93px 0 13px;
+    justify-content: center;
+`;
+const AvatarUnknown = styled.div`
+    width: 120px;
+    height: 120px;
+    background: #fff;
+    border-radius: 100%;
+    margin: -93px 0 13px;
+    svg {
+        width: 120px;
+        height: 120px;
+    }
 `;

@@ -96,7 +96,7 @@ const ProfileInfo = styled.div`
   flex-direction: column;
   gap: 5px;
 `
-const ProfileImage = styled(Image)`
+const ProfileImage = styled.img`
   border-radius: 100%;
   width: 64px;
   height: 64px;

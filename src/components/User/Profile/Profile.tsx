@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import HeaderBGImage from "@/assets/png/profileBG.png";
 import SvgSendMail from "@/assets/svgr/SendMail";
 import { FeedList } from "@/components/Feed";
@@ -11,9 +11,10 @@ import { postAsyncActions } from "@/store/features/post";
 import { subscriptionAsyncActions } from "@/store/features/subscription";
 import { $query } from "@/http";
 import { useRouter } from "next/router";
-import { chatAsyncActions } from "@/store/features/chat";
+import { chatActions, chatAsyncActions } from "@/store/features/chat";
 import SvgUnknownProfile from "@/assets/svgr/UnknownProfile";
 import { userAsyncActions } from "@/store/features/user";
+import { EditModal } from "../EditModal";
 
 interface ProfileProps {
     user: UserState;
@@ -28,6 +29,8 @@ export const Profile: React.FC<ProfileProps> = ({ user }) => {
     const subscriptionsIds =
         (mySubscriptions && mySubscriptions.map((el) => el.id)) || [];
 
+    const [isEditActive, setIsEditActive] = useState(false);
+
     useEffect(() => {
         dispatch(postAsyncActions.getUser({ userId: user?.id }));
     }, [user]);
@@ -40,8 +43,8 @@ export const Profile: React.FC<ProfileProps> = ({ user }) => {
                     subUserId: user.id,
                 })
             ).then((res) => {
-                dispatch(userAsyncActions.getUser({userId: user.id}))
-            })
+                dispatch(userAsyncActions.getUser({ userId: user.id }));
+            });
         }
     };
 
@@ -52,6 +55,7 @@ export const Profile: React.FC<ProfileProps> = ({ user }) => {
                     params: { userId: myProfile.id, sendUserId: user.id },
                 })
                 .then(async (res) => {
+                    dispatch(chatActions.setChatModalActive(true));
                     if (res.data.chatId) {
                         const id = res.data.chatId;
                         push({ pathname: "/chats", query: { chatId: id } });
@@ -79,13 +83,17 @@ export const Profile: React.FC<ProfileProps> = ({ user }) => {
 
     return (
         <MainLayout title="Profile" variant="profile">
+            {isEditActive && <EditModal setIsEditActive={setIsEditActive} />}
             <Header>
                 <HeaderBG src={HeaderBGImage} alt="header bg" />
             </Header>
             <InfoContainer>
                 {user.image ? (
                     <AvatarContainer>
-                        <Avatar src={user.image} alt="avatar" />
+                        <Avatar
+                            src={process.env.NEXT_PUBLIC_IMAGE_URL + user.image}
+                            alt="avatar"
+                        />
                     </AvatarContainer>
                 ) : (
                     <AvatarUnknown>
@@ -96,6 +104,14 @@ export const Profile: React.FC<ProfileProps> = ({ user }) => {
                     <Name>
                         {user?.name} {user?.surname}
                     </Name>
+                    {user.id === myProfile?.id && (
+                        <EditProfileBtn onClick={() => setIsEditActive(true)}>
+                            <SendMailBtnText>
+                                Редактировать профиль
+                            </SendMailBtnText>
+                        </EditProfileBtn>
+                    )}
+
                     <Description>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                         Etiam tristique imperdiet est, ac lobortis justo
@@ -108,11 +124,11 @@ export const Profile: React.FC<ProfileProps> = ({ user }) => {
                         <StatName>likes</StatName>
                     </StatItem> */}
                     <StatItem>
-                        <StatCount>{user.subscriptions?.length}</StatCount>
+                        <StatCount>{user.subscriptions?.length || 0}</StatCount>
                         <StatName>Подписчиков</StatName>
                     </StatItem>
                     <StatItem>
-                        <StatCount>{user.posts?.length}</StatCount>
+                        <StatCount>{user.posts?.length || 0}</StatCount>
                         <StatName>постов</StatName>
                     </StatItem>
                 </StatContainer>
@@ -191,7 +207,7 @@ const AvatarUnknown = styled.div`
         height: 120px;
     }
 `;
-const Avatar = styled(Image)`
+const Avatar = styled.img`
     border-radius: 100%;
     width: 92%;
     height: 92%;
@@ -290,6 +306,11 @@ const SendMailBtnText = styled.p`
     background-clip: text;
     text-fill-color: transparent;
     transition: all 0.5s ease;
+`;
+const EditProfileBtn = styled(SendMailBtn)`
+    max-width: 300px;
+    margin: 0 auto;
+    justify-content: center;
 `;
 const FollowBtn = styled.button`
     font-weight: 700;

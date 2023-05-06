@@ -55,6 +55,16 @@ const userSlice = createSlice({
             state.searchOneUser = action.payload
             state.error = ""
         })
+        builder.addCase(userAsyncActions.edit.fulfilled, (state, action) => {
+            state.isLoading = false
+            state.error = ""
+            if(state.user) {
+                state.user.name = action.payload.name
+                state.user.surname = action.payload.surname
+                state.user.image = action.payload.image
+                state.user.birthday = action.payload.birthday
+            }
+        })
 
 
         builder.addMatcher(
@@ -64,6 +74,7 @@ const userSlice = createSlice({
                 userAsyncActions.search.pending,
                 userAsyncActions.getUser.pending,
                 userAsyncActions.check.pending,
+                userAsyncActions.edit.pending,
             ),
             (state) => {
                 state.isLoading = true
@@ -77,6 +88,7 @@ const userSlice = createSlice({
                 userAsyncActions.search.rejected,
                 userAsyncActions.getUser.rejected,
                 userAsyncActions.check.rejected,
+                userAsyncActions.edit.rejected,
             ),
             (state, action) => {
                 state.isLoading = false

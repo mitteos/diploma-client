@@ -5,9 +5,7 @@ import { MessageForm } from "@/components/Message";
 import { useRouter } from "next/router";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { messageActions, messageAsyncActions } from "@/store/features/message";
-import { MessageState } from "@/store/features/message/types";
 import * as process from "process";
-import { chatActions } from "@/store/features/chat";
 
 export const MessageList = () => {
     const scrollRef = useRef<HTMLDivElement>(null);

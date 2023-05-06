@@ -15,6 +15,11 @@ interface MainLayoutProps {
     children: React.ReactNode | React.ReactNode[];
 }
 
+const appHeight = () => {
+    const doc = document.documentElement
+    doc.style.setProperty("--app-height", `${window.innerHeight}px`)
+}
+
 export const MainLayout: React.FC<MainLayoutProps> = ({
     title,
     children,
@@ -34,6 +39,8 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
 
     useEffect(() => {
         dispatch(userAsyncActions.check);
+        window.addEventListener("resize", appHeight)
+        appHeight()
     }, []);
 
     const pageTitle = `Салют | ${title}`;

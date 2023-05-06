@@ -13,3 +13,10 @@ export interface UserState {
     subscriptions: SubscriptionState[];
     token?: string;
 }
+
+export interface UserEditState {
+    name: string;
+    surname: string;
+    birthday: Date;
+    image: string;
+}

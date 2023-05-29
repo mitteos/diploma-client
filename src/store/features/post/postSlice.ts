@@ -55,6 +55,26 @@ const postSlice = createSlice({
             state.isLoading = false
             state.error = ""
         })
+        builder.addCase(postAsyncActions.remove.fulfilled, (state, action) => {
+            state.isLoading = false
+            state.error = ""
+            state.posts = state.posts.filter(el => el.id !== action.payload)
+        })
+        builder.addCase(postAsyncActions.edit.fulfilled, (state, action) => {
+            state.isLoading = false
+            state.error = ""
+            console.log(action.payload)
+            state.posts = state.posts.map(post => {
+                if(post.id === action.payload.id) {
+                    return {
+                        ...post,
+                        image: action.payload.image,
+                        content: action.payload.content
+                    }
+                }
+                return post
+            })
+        })
 
 
         builder.addMatcher(
@@ -62,6 +82,8 @@ const postSlice = createSlice({
                 postAsyncActions.getFeed.pending,
                 postAsyncActions.getUser.pending,
                 postAsyncActions.create.pending,
+                postAsyncActions.edit.pending,
+                postAsyncActions.remove.pending,
             ),
             (state) => {
                 state.isLoading = true
@@ -73,6 +95,8 @@ const postSlice = createSlice({
                 postAsyncActions.getFeed.rejected,
                 postAsyncActions.getUser.rejected,
                 postAsyncActions.create.rejected,
+                postAsyncActions.edit.rejected,
+                postAsyncActions.remove.rejected,
             ),
             (state, action) => {
                 state.isLoading = false

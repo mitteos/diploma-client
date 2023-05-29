@@ -13,6 +13,7 @@ export { default as LikePage } from "./LikePage";
 export { default as Logo } from "./Logo";
 export { default as Logout } from "./Logout";
 export { default as MailPage } from "./MailPage";
+export { default as Posts } from "./Posts";
 export { default as Profile } from "./Profile";
 export { default as Register1 } from "./Register1";
 export { default as Register2 } from "./Register2";

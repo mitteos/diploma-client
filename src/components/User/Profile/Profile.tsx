@@ -112,11 +112,11 @@ export const Profile: React.FC<ProfileProps> = ({ user }) => {
                         </EditProfileBtn>
                     )}
 
-                    <Description>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Etiam tristique imperdiet est, ac lobortis justo
-                        lobortis at. Ut sit amet nisl sem.
-                    </Description>
+                    {/*<Description>*/}
+                    {/*    Lorem ipsum dolor sit amet, consectetur adipiscing elit.*/}
+                    {/*    Etiam tristique imperdiet est, ac lobortis justo*/}
+                    {/*    lobortis at. Ut sit amet nisl sem.*/}
+                    {/*</Description>*/}
                 </ProfileInfo>
                 <StatContainer>
                     {/* <StatItem>

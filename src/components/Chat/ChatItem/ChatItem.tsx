@@ -44,7 +44,7 @@ export const ChatItem: React.FC<ChatItemProps> = ({isSend = false, isNew = false
                         ? <MessageText>Вы:</MessageText>
                         : isNew && <MessageIndicator/>
                     }
-                    <MessageText $isSend={isSend}>Lorem ipsum dolor sit amet...</MessageText>
+                    {/*<MessageText $isSend={isSend}>Lorem ipsum dolor sit amet...</MessageText>*/}
                 </MessageContainer>
             </InfoContainer>
         </Container>
@@ -56,6 +56,7 @@ const Container = styled.div`
   display: flex;
   gap: 20px;
   align-items: center;
+  cursor: pointer;
   @media (max-width: 876px) {
     gap: 10px;
   }

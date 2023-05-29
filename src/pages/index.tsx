@@ -19,7 +19,7 @@ const HomePage = () => {
 
     return (
         <MainLayout title="Home">
-            <Title>Most popular</Title>
+            <Title>Популярные пользователи</Title>
             <PopularList />
             <Title>Лента новостей</Title>
             <AddPostForm />

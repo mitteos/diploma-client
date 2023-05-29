@@ -18,3 +18,9 @@ export interface CreatePostState {
     image: File | null;
     userId?: number;
 }
+
+export interface EditPostState {
+    postId: number;
+    content: string;
+    image: File | null;
+}

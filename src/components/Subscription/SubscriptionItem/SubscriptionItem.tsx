@@ -2,8 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import SubsBg from "@/assets/png/subscriptionBG.png";
 import Link from "next/link";
-import SvgSendMail from "@/assets/svgr/SendMail";
-import SvgClose from "@/assets/svgr/Close";
 import { UserState } from "@/store/features/user/types";
 import SvgUnknownProfile from "@/assets/svgr/UnknownProfile";
 

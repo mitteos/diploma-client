@@ -12,6 +12,7 @@ import storage from "redux-persist/lib/storage"
 import { configureStore, combineReducers } from "@reduxjs/toolkit"
 import {
     chatReducer,
+    commentReducer,
     likeReducer,
     messageReducer,
     postReducer,
@@ -25,7 +26,8 @@ const rootReducer = combineReducers({
     subscription: subscriptionReducer,
     like: likeReducer,
     chat: chatReducer,
-    message: messageReducer
+    message: messageReducer,
+    comment: commentReducer
 })
 
 const persistConfig = {

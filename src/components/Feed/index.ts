@@ -1,3 +1,6 @@
 export {FeedItem} from "./FeedItem"
 export {FeedList} from "./FeedList"
 export {AddPostForm} from "./AddPostForm"
+export {AddCommentForm} from "./AddCommentForm"
+export {CommentItem} from "./CommentItem"
+export {CommentList} from "./CommentList"

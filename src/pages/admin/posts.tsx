@@ -6,6 +6,7 @@ import styled from "styled-components";
 import {PostState} from "@/store/features/post/types";
 import {FeedItem} from "@/components/Feed";
 import {$query} from "@/http";
+import IsAdminPage from '@/hocs/IsAdminPage';
 
 interface FormFields {
     content: string;
@@ -37,7 +38,7 @@ const AdminPostsPage = () => {
     );
 };
 
-export default AdminPostsPage;
+export default IsAdminPage(AdminPostsPage);
 
 const Form = styled.form`
   display: flex;

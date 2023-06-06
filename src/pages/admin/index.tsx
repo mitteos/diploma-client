@@ -4,11 +4,10 @@ import {MainLayout} from "@/layouts";
 import styled from "styled-components";
 import SvgProfile from "@/assets/svgr/Profile";
 import SvgPosts from "@/assets/svgr/Posts";
+import {NextPage} from "next";
+import IsAdminPage from "@/hocs/IsAdminPage";
 
-const AdminPanel = () => {
-
-
-
+const AdminPanel: NextPage = () => {
     return (
         <MainLayout title="Админ панель">
             <Container>
@@ -25,7 +24,7 @@ const AdminPanel = () => {
     );
 };
 
-export default AdminPanel;
+export default IsAdminPage(AdminPanel);
 
 const Container = styled.div`
   display: flex;

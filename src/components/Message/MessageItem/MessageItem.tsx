@@ -11,8 +11,8 @@ export const MessageItem: React.FC<MessageItemProps> = ({isMyMessage, content, d
 
     const currentDate = new Date(date)
     const messDate = {
-        hour: currentDate.getHours(),
-        minutes: currentDate.getMinutes()
+        hour: currentDate.getHours() < 10 ? `0${currentDate.getHours()}` : currentDate.getHours(),
+        minutes: currentDate.getMinutes() < 10 ? `0${currentDate.getMinutes()}` : currentDate.getMinutes()
     }
 
     return (

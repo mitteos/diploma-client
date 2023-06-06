@@ -5,16 +5,11 @@ import { Input } from "@/components/UI";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { emailPattern } from "@/utils/patternsCollection";
 import Link from "next/link";
-import Image from "next/image";
-import DecorationIcon1 from "@/assets/svg/decoration1.svg";
-import DecorationIcon2 from "@/assets/svg/decoration2.svg";
-import DecorationIcon3 from "@/assets/svg/decoration3.svg";
-import DecorationIcon4 from "@/assets/svg/decoration4.svg";
-import DecorationIcon5 from "@/assets/svg/decoration5.svg";
 import { AuthForm } from "@/components/Auth";
-import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { useAppDispatch } from "@/hooks/redux";
 import { userAsyncActions } from "@/store/features/user";
 import { useRouter } from "next/router";
+import {toast, ToastContainer} from "react-toastify";
 
 interface LoginFormInputs {
     email: string;
@@ -37,8 +32,12 @@ const Login: NextPage = () => {
             if (res.meta.requestStatus === "fulfilled") {
                 push("/");
             }
+            if(res.meta.requestStatus === "rejected" && typeof res.payload === "string") {
+                toast.error(res.payload)
+            }
         });
     };
+
 
     return (
         <AuthForm>

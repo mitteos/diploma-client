@@ -14,6 +14,7 @@ export const ChatList = () => {
     useEffect(() => {
         if(user) {
             dispatch(chatAsyncActions.getAll({userId: user.id}))
+                .then((res) => console.log(res))
         }
     }, [])
 

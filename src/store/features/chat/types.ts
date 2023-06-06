@@ -1,4 +1,5 @@
 import {UserState} from "@/store/features/user/types";
+import {MessageState} from "@/store/features/message/types";
 
 export interface ChatUserState {
     name: string;
@@ -8,5 +9,6 @@ export interface ChatUserState {
 
 export interface ChatState {
     chatId: number;
-    user: ChatUserState
+    user: ChatUserState;
+    lastMessage: MessageState | null;
 }

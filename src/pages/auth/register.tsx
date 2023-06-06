@@ -9,6 +9,7 @@ import {AuthForm, Navigation} from "@/components/Auth";
 import {useAppDispatch} from "@/hooks/redux";
 import { userAsyncActions } from '@/store/features/user';
 import {useRouter} from "next/router";
+import {toast, ToastContainer} from "react-toastify";
 
 interface LoginFormInputs {
   email: string
@@ -26,9 +27,6 @@ const Login: NextPage = () => {
   const {push} = useRouter()
 
   const registration: SubmitHandler<LoginFormInputs> = (formFields) => {
-    if(step === 1) {
-      setStep(2)
-    }
     if(step === 2) {
       const {email, password, name, age, surname} = formFields
       dispatch(userAsyncActions.register({email, password, name, surname, birthday: age}))
@@ -36,14 +34,21 @@ const Login: NextPage = () => {
             if (res.meta.requestStatus === "fulfilled") {
               push("/auth/login")
             }
+            if(res.meta.requestStatus === "rejected" && typeof res.payload === "string") {
+              toast.error(res.payload)
+            }
           })
     }
   }
 
-
   return (
       <AuthForm>
         <Content>
+          <ToastContainer
+              closeOnClick
+              position="bottom-center"
+              autoClose={2000}
+          />
           <Title>Регистрация</Title>
           <Navigation step={step} setStep={setStep}/>
           <Form onSubmit={handleSubmit(registration)}>
@@ -69,7 +74,7 @@ const Login: NextPage = () => {
                         minLength={6}
                         getValues={getValues}
                     />
-                    <Button type="submit">Продолжить</Button>
+                    <Button type="submit" onClick={() => setStep(2)}>Продолжить</Button>
                 </>
             }
             {step === 2 &&

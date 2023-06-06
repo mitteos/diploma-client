@@ -2,6 +2,7 @@ import React from 'react';
 import {SearchForm} from "@/components/Subscription";
 import styled from "styled-components";
 import {useAppSelector} from "@/hooks/redux";
+import IsAdminPage from '@/hocs/IsAdminPage';
 
 const UsersPage: React.FC = () => {
 
@@ -18,7 +19,7 @@ const UsersPage: React.FC = () => {
     );
 };
 
-export default UsersPage;
+export default IsAdminPage(UsersPage);
 
 const Container = styled.div`
   padding: 20px;

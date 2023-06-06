@@ -20,6 +20,12 @@ export const ChatItem: React.FC<ChatItemProps> = ({isSend = false, isNew = false
     const dispatch = useAppDispatch()
     const {push} = useRouter()
 
+    const messageDate = new Date(info.lastMessage?.createdAt || 0)
+    const currentDate = {
+        hour: messageDate.getHours() < 10 ? `0${messageDate.getHours()}` : messageDate.getHours(),
+        minutes: messageDate.getMinutes() < 10 ? `0${messageDate.getMinutes()}` : messageDate.getMinutes()
+    }
+
     const handleChooseChat = () => {
         dispatch(chatActions.setChatModalActive(true))
         push({pathname: "/chats", query: {chatId: info.chatId}})
@@ -37,14 +43,16 @@ export const ChatItem: React.FC<ChatItemProps> = ({isSend = false, isNew = false
             <InfoContainer>
                 <Header>
                     <Name>{info.user.name} {info.user.surname}</Name>
-                    <Time>14:42</Time>
+                    {info.lastMessage &&
+                        <Time>{currentDate.hour}:{currentDate.minutes}</Time>
+                    }
                 </Header>
                 <MessageContainer>
                     {isSend
                         ? <MessageText>Вы:</MessageText>
                         : isNew && <MessageIndicator/>
                     }
-                    {/*<MessageText $isSend={isSend}>Lorem ipsum dolor sit amet...</MessageText>*/}
+                    <MessageText $isSend={isSend}>{info.lastMessage?.content}</MessageText>
                 </MessageContainer>
             </InfoContainer>
         </Container>

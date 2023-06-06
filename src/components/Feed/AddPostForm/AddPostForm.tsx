@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from "styled-components";
-import SvgAdd from "@/assets/svgr/Add";
-import {CustomInput, Input} from "@/components/UI";
+import {Input} from "@/components/UI";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {useAppDispatch, useAppSelector} from "@/hooks/redux";
 import { postAsyncActions } from '@/store/features/post';
 import SvgUploadIcon from "@/assets/svgr/UploadIcon";
+import {toast, ToastContainer} from "react-toastify";
 
 interface AddPostFormFields {
     content: string;
@@ -24,11 +24,19 @@ export const AddPostForm = () => {
             .then((res) => {
                 dispatch(postAsyncActions.getFeed({userId: user?.id}))
                 reset()
+                if(res.meta.requestStatus === "fulfilled") {
+                    toast.success("Запись добавлена")
+                }
             })
     }
 
     return (
         <AddPostContainer onSubmit={handleSubmit(createPost)}>
+            <ToastContainer
+                closeOnClick
+                position="bottom-center"
+                autoClose={2000}
+            />
             <FormInput
                 placeholder="Текст записи"
                 register={register}

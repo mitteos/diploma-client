@@ -60,13 +60,16 @@ export const ChatItem: React.FC<ChatItemProps> = ({isSend = false, isNew = false
 };
 
 const Container = styled.div`
-  width: 100%;
+  width: 250px;
   display: flex;
   gap: 20px;
   align-items: center;
   cursor: pointer;
   @media (max-width: 876px) {
     gap: 10px;
+  }
+  @media (max-width: 730px) {
+    width: 100%;
   }
 `
 const Icon = styled(Image)`

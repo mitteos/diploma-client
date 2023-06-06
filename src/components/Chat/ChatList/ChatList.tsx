@@ -20,7 +20,6 @@ export const ChatList = () => {
 
     return (
         <Container>
-            <Navigation/>
             {!!chats.length
                 ? chats.map(chat =>
                     <ChatItem key={chat.chatId} info={chat}/>

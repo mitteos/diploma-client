@@ -1,5 +1,5 @@
 import { createSlice, isAnyOf } from "@reduxjs/toolkit";
-import { UserState } from "@/store/features/user/types";
+import {PopularUserState, UserState} from "@/store/features/user/types";
 import { userAsyncActions } from ".";
 
 interface InitialState {
@@ -8,6 +8,7 @@ interface InitialState {
     user: UserState | null;
     searchUsers: UserState[] | null;
     searchOneUser: UserState | null;
+    popularUsers: PopularUserState[] | null;
 }
 
 const initialState: InitialState = {
@@ -16,6 +17,7 @@ const initialState: InitialState = {
     user: null,
     searchUsers: null,
     searchOneUser: null,
+    popularUsers: null
 };
 
 const userSlice = createSlice({
@@ -55,6 +57,11 @@ const userSlice = createSlice({
             state.searchOneUser = action.payload;
             state.error = "";
         });
+        builder.addCase(userAsyncActions.getPopularUsers.fulfilled, (state, action) => {
+            state.isLoading = false;
+            state.popularUsers = action.payload;
+            state.error = "";
+        });
         builder.addCase(userAsyncActions.edit.fulfilled, (state, action) => {
             state.isLoading = false;
             state.error = "";
@@ -73,7 +80,8 @@ const userSlice = createSlice({
                 userAsyncActions.search.pending,
                 userAsyncActions.getUser.pending,
                 userAsyncActions.check.pending,
-                userAsyncActions.edit.pending
+                userAsyncActions.edit.pending,
+                userAsyncActions.getPopularUsers.pending
             ),
             (state) => {
                 state.isLoading = true;
@@ -87,7 +95,8 @@ const userSlice = createSlice({
                 userAsyncActions.search.rejected,
                 userAsyncActions.getUser.rejected,
                 userAsyncActions.check.rejected,
-                userAsyncActions.edit.rejected
+                userAsyncActions.edit.rejected,
+                userAsyncActions.getPopularUsers.rejected
             ),
             (state, action) => {
                 state.isLoading = false;

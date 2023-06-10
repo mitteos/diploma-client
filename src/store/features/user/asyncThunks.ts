@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { UserEditState, UserState } from "@/store/features/user/types";
+import {PopularUserState, UserEditState, UserState} from "@/store/features/user/types";
 import { AxiosError } from "axios";
 import { $authQuery, $query } from "@/http";
 import jwtDecode from "jwt-decode";
@@ -101,7 +101,7 @@ export const edit = createAsyncThunk<UserEditState, EditUserProps>(
             const { data } = await $query.post("user/edit", formData);
             const result = jwtDecode<UserEditState>(data)
             return result
-        
+
         } catch (e) {
             if (e instanceof AxiosError) {
                 return rejectWithValue(e.response?.data.message);
@@ -138,6 +138,21 @@ export const getUser = createAsyncThunk<UserState, { userId: number }>(
             const { data } = await $query.get(`user/get-profile`, {
                 params: { userId },
             });
+            return data;
+        } catch (e) {
+            if (e instanceof AxiosError) {
+                return rejectWithValue(e.response?.data.message);
+            }
+            return rejectWithValue("Unknown error");
+        }
+    }
+);
+
+export const getPopularUsers = createAsyncThunk<PopularUserState[]>(
+    "user/getPopularUsers",
+    async (userData, { rejectWithValue }) => {
+        try {
+            const { data } = await $query.get(`user/get-popular`);
             return data;
         } catch (e) {
             if (e instanceof AxiosError) {

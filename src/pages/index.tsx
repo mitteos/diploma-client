@@ -5,6 +5,7 @@ import { AddPostForm, FeedList } from "@/components/Feed";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { postAsyncActions } from "@/store/features/post";
 import { useEffect } from "react";
+import { userAsyncActions } from "@/store/features/user";
 
 const HomePage = () => {
     const dispatch = useAppDispatch();
@@ -14,6 +15,7 @@ const HomePage = () => {
     useEffect(() => {
         if (user?.id) {
             dispatch(postAsyncActions.getFeed({ userId: user?.id }));
+            dispatch(userAsyncActions.getPopularUsers())
         }
     }, []);
 

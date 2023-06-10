@@ -1,9 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
-import AvatarIcon from "@/assets/png/chatItem.png";
-import Image from "next/image";
 import {useRouter} from "next/router";
-import {Profile} from "@/assets/svgr";
 import {useAppDispatch, useAppSelector} from "@/hooks/redux";
 import SvgUnknownProfile from "@/assets/svgr/UnknownProfile";
 import * as process from "process";
@@ -27,9 +24,9 @@ export const UserHeader: React.FC<{}> = () => {
             </CloseChatBtn>
             <UserContainer>
                 {query.chatId
-                    ? chats[+query.chatId]?.user.image
+                    ? chats.find(user => query.chatId && user.chatId === +query.chatId)!.user.image
                         ? <Avatar>
-                            <ProfileIcon src={process.env.NEXT_PUBLIC_IMAGE_URL + chats[+query.chatId].user.image} alt="user"/>
+                            <ProfileIcon src={process.env.NEXT_PUBLIC_IMAGE_URL + chats.find(user => query.chatId &&  user.chatId === +query.chatId)!.user.image} alt="user"/>
                         </Avatar>
                         : <Avatar>
                             <SvgUnknownProfile fill="#306EEA" />
@@ -86,7 +83,7 @@ const Name = styled.p`
   font-weight: 700;
   font-size: 18px;
 `
-const ProfileIcon = styled(Image)`
+const ProfileIcon = styled.img`
   border-radius: 100%;
   width: 40px;
   height: 40px;

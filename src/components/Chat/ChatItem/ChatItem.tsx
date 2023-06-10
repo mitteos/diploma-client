@@ -72,15 +72,11 @@ const Container = styled.div`
     width: 100%;
   }
 `
-const Icon = styled(Image)`
+const Icon = styled.img`
   width: 40px;
   height: 40px;
   object-fit: cover;
   border-radius: 100%;
-  @media (max-width: 876px) {
-    width: 60px;
-    height: 60px;
-  }
 `
 const UnknownIcon = styled.div`
   width: 40px;

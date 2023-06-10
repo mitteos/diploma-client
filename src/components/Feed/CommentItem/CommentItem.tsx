@@ -48,19 +48,19 @@ export const CommentItem: React.FC<CommentItemProps> = ({ info }) => {
                             <SvgUnknownProfile />
                         </UnknownImage>
                     )}
-                    <ProfileName $isProfile={pathname === "/profile"}>
+                    <ProfileName $isProfile={pathname.includes("/profile")}>
                         {info.user.name} {info.user.surname}
                     </ProfileName>
                 </Profile>
                 <RemoveBtn
                     onClick={handleRemoveClick}
                     $isActive={isRemoveVisible}
-                    $isProfile={pathname === "/profile"}
+                    $isProfile={pathname.includes("/profile")}
                 >
                     +
                 </RemoveBtn>
             </Header>
-            <Content $isProfile={pathname === "/profile"}>{info.content}</Content>
+            <Content $isProfile={pathname.includes("/profile")}>{info.content}</Content>
         </Container>
     );
 };

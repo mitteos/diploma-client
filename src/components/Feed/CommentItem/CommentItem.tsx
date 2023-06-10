@@ -45,7 +45,7 @@ export const CommentItem: React.FC<CommentItemProps> = ({ info }) => {
                         />
                     ) : (
                         <UnknownImage>
-                            <SvgUnknownProfile />
+                            <SvgUnknownProfile fill="#114FEE"/>
                         </UnknownImage>
                     )}
                     <ProfileName $isProfile={pathname.includes("/profile")}>

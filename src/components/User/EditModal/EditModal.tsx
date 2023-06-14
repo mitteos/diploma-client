@@ -14,7 +14,7 @@ interface FormFiels {
     name: string;
     surname: string;
     image: FileList;
-    birthday: Date;
+    birthday: string;
     status: string;
 }
 
@@ -30,7 +30,7 @@ export const EditModal: React.FC<EditModalProps> = ({ setIsEditActive }) => {
         defaultValues: {
             name: user?.name,
             surname: user?.surname,
-            birthday: user ? new Date(user.birthday) : new Date(),
+            birthday: user?.birthday.toString().split("T")[0]
         },
     });
 
@@ -40,7 +40,7 @@ export const EditModal: React.FC<EditModalProps> = ({ setIsEditActive }) => {
             dispatch(
                 userAsyncActions.edit({
                     userId: user.id,
-                    birthday: birthday,
+                    birthday: new Date(birthday),
                     image: image[0],
                     name: name,
                     surname: surname,

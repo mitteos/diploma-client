@@ -24,7 +24,7 @@ export const Profile: React.FC<ProfileProps> = ({ user }) => {
     const { push } = useRouter();
     const dispatch = useAppDispatch();
     const { posts } = useAppSelector((state) => state.post);
-    const { user: myProfile } = useAppSelector((state) => state.user);
+    const { user: myProfile, searchOneUser } = useAppSelector((state) => state.user);
     const { mySubscriptions } = useAppSelector((state) => state.subscription);
     const subscriptionsIds =
         (mySubscriptions && mySubscriptions.map((el) => el.id)) || [];
@@ -84,9 +84,7 @@ export const Profile: React.FC<ProfileProps> = ({ user }) => {
     return (
         <MainLayout title="Profile" variant="profile">
             {isEditActive && <EditModal setIsEditActive={setIsEditActive} />}
-            <Header>
-                <HeaderBG src={HeaderBGImage} alt="header bg" />
-            </Header>
+            <Header></Header>
             <InfoContainer>
                 {user.image ? (
                     <AvatarContainer>
@@ -111,18 +109,9 @@ export const Profile: React.FC<ProfileProps> = ({ user }) => {
                             </SendMailBtnText>
                         </EditProfileBtn>
                     )}
-
-                    {/*<Description>*/}
-                    {/*    Lorem ipsum dolor sit amet, consectetur adipiscing elit.*/}
-                    {/*    Etiam tristique imperdiet est, ac lobortis justo*/}
-                    {/*    lobortis at. Ut sit amet nisl sem.*/}
-                    {/*</Description>*/}
                 </ProfileInfo>
                 <StatContainer>
-                    {/* <StatItem>
-                        <StatCount>1.3M</StatCount>
-                        <StatName>likes</StatName>
-                    </StatItem> */}
+
                     <StatItem>
                         <StatCount>{user.subscriptions?.length || 0}</StatCount>
                         <StatName>Подписчиков</StatName>
@@ -170,13 +159,7 @@ const Header = styled.div`
         box-shadow: inset 0px -28px 13px -4px #060419;
     }
 `;
-const HeaderBG = styled(Image)`
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-top-left-radius: 32px;
-    border-top-right-radius: 32px;
-`;
+
 const InfoContainer = styled.div`
     display: flex;
     flex-direction: column;

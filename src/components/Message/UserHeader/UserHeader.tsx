@@ -24,7 +24,7 @@ export const UserHeader: React.FC<{}> = () => {
             </CloseChatBtn>
             <UserContainer>
                 {query.chatId
-                    ? chats.find(user => query.chatId && user.chatId === +query.chatId)!.user.image
+                    ? chats.find(user => query.chatId && user.chatId === +query.chatId)?.user.image
                         ? <Avatar>
                             <ProfileIcon src={process.env.NEXT_PUBLIC_IMAGE_URL + chats.find(user => query.chatId &&  user.chatId === +query.chatId)!.user.image} alt="user"/>
                         </Avatar>

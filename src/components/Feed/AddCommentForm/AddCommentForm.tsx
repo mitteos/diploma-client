@@ -35,8 +35,8 @@ export const AddCommentForm: React.FC<AddCommentFormProps> = ({postInfo}) => {
         if(user) {
             dispatch(commentAsyncActions.create({postId: postInfo.id, content: formData.content, userId: user.id}))
             .then((res) => {
-                if(pathname === "/profile") {
-                    dispatch(postAsyncActions.getUser({userId: user.id}))
+                if(pathname.includes("/profile")) {
+                    dispatch(postAsyncActions.getUser({userId: postInfo.userId}))
                 } else {
                     dispatch(postAsyncActions.getFeed({userId: user.id}))
                 }

@@ -68,6 +68,7 @@ const Container = styled.div`
     overflow: hidden;
 `;
 const MessageContent = styled.div`
+  overflow-y: auto;
     flex: auto;
     border-radius: 32px;
     color: #000;
@@ -83,9 +84,10 @@ const MessageContent = styled.div`
         overflow: hidden;
     }
 `;
-const Content = styled(SimpleBar)<{
+const Content = styled.div<{
     $variant: "primary" | "profile" | "message";
 }>`
+  overflow-y: auto;
     flex: auto;
     background: ${({ $variant }) =>
         $variant === "primary" || $variant === "message" ? "#fff" : "#060419"};

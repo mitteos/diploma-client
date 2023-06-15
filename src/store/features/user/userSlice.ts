@@ -72,6 +72,19 @@ const userSlice = createSlice({
                 state.user.birthday = action.payload.birthday;
             }
         });
+        builder.addCase(userAsyncActions.setRole.fulfilled, (state, action) => {
+            state.isLoading = false;
+            state.searchUsers = state.searchUsers && state.searchUsers.map(user => {
+                if(user.id === action.payload.userId) {
+                    return {
+                        ...user,
+                        role: action.payload.role
+                    }
+                }
+                return user
+            })
+            state.error = "";
+        });
 
         builder.addMatcher(
             isAnyOf(

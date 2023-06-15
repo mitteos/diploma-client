@@ -162,3 +162,19 @@ export const getPopularUsers = createAsyncThunk<PopularUserState[]>(
         }
     }
 );
+
+export const setRole = createAsyncThunk<{userId: number; role: string}, {adminId: number; userId: number; role: string}>(
+    "user/setRole",
+    async (userData, { rejectWithValue }) => {
+        try {
+            const {adminId, userId, role} = userData
+            const { data } = await $query.post(`user/set-role`, {adminId, userId, role});
+            return data;
+        } catch (e) {
+            if (e instanceof AxiosError) {
+                return rejectWithValue(e.response?.data.message);
+            }
+            return rejectWithValue("Unknown error");
+        }
+    }
+);

@@ -41,6 +41,11 @@ const Login: NextPage = () => {
 
     return (
         <AuthForm>
+            <ToastContainer
+                closeOnClick
+                position="bottom-center"
+                autoClose={2000}
+            />
             <Content onSubmit={handleSubmit(login)}>
                 <Title>Авторизация</Title>
                 <FormInput

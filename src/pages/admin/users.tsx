@@ -5,6 +5,7 @@ import {useAppDispatch, useAppSelector} from "@/hooks/redux";
 import IsAdminPage from '@/hocs/IsAdminPage';
 import { userAsyncActions } from '@/store/features/user';
 import {toast, ToastContainer} from "react-toastify";
+import {MainLayout} from "@/layouts";
 
 const UsersPage: React.FC = () => {
 
@@ -23,34 +24,36 @@ const UsersPage: React.FC = () => {
     }
 
     return (
-        <Container>
-            <ToastContainer
-                closeOnClick
-                position="bottom-center"
-                autoClose={2000}
-            />
-            <Title>Редактирование прав</Title>
-            <SearchForm />
-            <List>
-                {!!searchUsers && searchUsers.map(user =>
-                    <UserItem key={user.id}>
-                        <UserName>{user.name} {user.surname}</UserName>
-                        <SelectRole defaultValue={user.role} onChange={(e) => setRole(e.target.value, user.id)}>
-                            <option value="USER">Пользователь</option>
-                            <option value="ADMIN">Модератор</option>
-                        </SelectRole>
-                    </UserItem>
-                )}
-            </List>
+        <MainLayout title="Редактирование прав">
+            <Container>
+                <ToastContainer
+                    closeOnClick
+                    position="bottom-center"
+                    autoClose={2000}
+                />
+                <Title>Редактирование прав</Title>
+                <SearchForm />
+                <List>
+                    {!!searchUsers && searchUsers.map(user =>
+                        <UserItem key={user.id}>
+                            <UserName>{user.name} {user.surname}</UserName>
+                            <SelectRole defaultValue={user.role} onChange={(e) => setRole(e.target.value, user.id)}>
+                                <option value="USER">Пользователь</option>
+                                <option value="ADMIN">Модератор</option>
+                            </SelectRole>
+                        </UserItem>
+                    )}
+                </List>
 
-        </Container>
+            </Container>
+        </MainLayout>
     );
 };
 
 export default IsAdminPage(UsersPage);
 
 const Container = styled.div`
-  padding: 20px;
+
 `
 const Title = styled.h1`
   font-size: 18px;

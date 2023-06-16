@@ -422,7 +422,7 @@ const PostImages = styled.div`
     gap: 10px;
 `;
 const PostImagesItem = styled.img`
-    width: 326px;
+    width: 100%;
     max-height: 249px;
     object-fit: cover;
     border-radius: 26px;

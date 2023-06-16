@@ -25,7 +25,7 @@ export const PopularItem: React.FC<PopularItemProps> = ({info}) => {
                     : <UnknownProfile width={62} height={62} fill="#114FEE" />
                 }
                 <ProfileName href={`/profile/${info.id}`}>{info.name} {info.surname}</ProfileName>
-                <ProfileInfo>{info.likes.length} likes</ProfileInfo>
+                <ProfileInfo>Лайки: {info.likes.length}</ProfileInfo>
             </Profile>
         </Container>
     );

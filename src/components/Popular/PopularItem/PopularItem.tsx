@@ -15,10 +15,6 @@ interface PopularItemProps {
 export const PopularItem: React.FC<PopularItemProps> = ({info}) => {
     return (
         <Container>
-            <Row>
-                <PopularImage src={PopularImage1} alt=""/>
-                <PopularImage src={PopularImage2} alt=""/>
-            </Row>
             <Profile>
                 {info.image
                     ? <ProfileIcon src={process.env.NEXT_PUBLIC_IMAGE_URL + info.image} alt="" />
@@ -53,7 +49,6 @@ const Profile = styled.div`
   align-items: center;
   flex-direction: column;
   text-align: center;
-  margin-top: -44px;
 `
 const ProfileIcon = styled.img`
   border-radius: 100%;

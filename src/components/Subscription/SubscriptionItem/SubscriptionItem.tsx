@@ -31,14 +31,6 @@ export const SubscriptionItem: React.FC<SubscriptionItemProps> = ({ info }) => {
                 <Description>
                     I like doing the best work in the world...
                 </Description>
-                {/*<NavigationContainer>*/}
-                {/*    <NavigationItem href="">*/}
-                {/*        <SvgSendMail fill="#114FEE"/>*/}
-                {/*    </NavigationItem>*/}
-                {/*    <NavigationItem href="">*/}
-                {/*        <SvgClose />*/}
-                {/*    </NavigationItem>*/}
-                {/*</NavigationContainer>*/}
             </Content>
         </Container>
     );
@@ -60,10 +52,10 @@ const Content = styled.div`
     margin-top: 120px;
 `;
 const Avatar = styled.img`
-    width: 140px;
-    height: 140px;
     border-radius: 100%;
     object-fit: cover;
+    width: 100%;
+    height: 100%;
 `;
 const Name = styled.p`
     font-weight: 600;

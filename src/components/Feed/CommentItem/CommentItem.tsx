@@ -52,13 +52,23 @@ export const CommentItem: React.FC<CommentItemProps> = ({ info }) => {
                         {info.user.name} {info.user.surname}
                     </ProfileName>
                 </Profile>
-                <RemoveBtn
-                    onClick={handleRemoveClick}
-                    $isActive={isRemoveVisible}
-                    $isProfile={pathname.includes("/profile")}
-                >
-                    +
-                </RemoveBtn>
+                {user && info.userId === user.id &&
+                    <RemoveBtn
+                        onClick={handleRemoveClick}
+                        $isActive={isRemoveVisible}
+                        $isProfile={pathname.includes("/profile")}
+                    >
+                        +
+                    </RemoveBtn>
+                    || user && user.role === "ADMIN" &&
+                    <RemoveBtn
+                        onClick={handleRemoveClick}
+                        $isActive={isRemoveVisible}
+                        $isProfile={pathname.includes("/profile")}
+                    >
+                        +
+                    </RemoveBtn>
+                }
             </Header>
             <Content $isProfile={pathname.includes("/profile")}>{info.content}</Content>
         </Container>

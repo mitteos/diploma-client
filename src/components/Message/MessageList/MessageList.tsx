@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { messageActions, messageAsyncActions } from "@/store/features/message";
 import * as process from "process";
+import { chatAsyncActions } from "@/store/features/chat";
 
 export const MessageList = () => {
     const scrollRef = useRef<HTMLDivElement>(null);
@@ -40,6 +41,7 @@ export const MessageList = () => {
                 const message = JSON.parse(e.data);
                 if (message.event === "message") {
                     dispatch(messageActions.addWsMessage(message));
+                    dispatch(chatAsyncActions.getAll({userId: user.id}))
                 }
             };
         }

@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { useRouter } from "next/router";
 import { messageAsyncActions } from "@/store/features/message";
 import SvgSendButton from "@/assets/svgr/SendButton";
+import { chatAsyncActions } from "@/store/features/chat";
 
 interface MessageFields {
     message: string;
@@ -44,7 +45,11 @@ export const MessageForm: React.FC<MessageFormProps> = ({ socket }) => {
                     userId: user.id,
                     chatId: +query.chatId,
                 })
-            );
+            )
+                .then(() => {
+                    dispatch(chatAsyncActions.getAll({userId: user.id}))
+                })
+            ;
             reset();
         }
     };
